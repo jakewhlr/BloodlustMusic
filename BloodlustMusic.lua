@@ -237,14 +237,16 @@ function SongPlayerPrimer(heroSpellID, specificSong, favoredFriend)
 		local friendMessage = " "
 		BloodlustVolumecache = tonumber(GetCVar(BloodlustMusic.soundVolumeTable[BloodlustSoundchannelNumber]))
 
-		--gets the current local time (minute)
-		minute = (date("%M"))
+
+	
 
 		--Check if a specific song was selected, else sets the chosen song equal to the current minute. Also makes sure the number is not higher than allowed
 		if specificSong > 0 then
 			songNumber = specificSong
 		else
-			songNumber = minute + 1
+			--gets the current local time (minute)
+			secMin = (date("%S") * date("%M"))
+			songNumber = math.floor(secMin / table.getn(BloodlustSongObjectTable)) + 1
 		end
 		if (songNumber > table.getn(BloodlustSongObjectTable)) then
 			songNumber = specificSong - (table.getn(BloodlustSongObjectTable))
